@@ -1,24 +1,18 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Layout = () => {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to="/">Foot</Link>
-        </li>
-        <li>
-          <Link to="clothes">Clothes</Link>
-        </li>
-        <li>
-          <Link to="electronics">Electronics</Link>
-        </li>
-      </ul>
+    <div className="h-full flex flex-col justify-between ">
+      <Navbar />
 
-      <Outlet />
+      <main className="h-full grow-[1]">
+        <Outlet />
+      </main>
 
-      <footer> Created by &copy;Virkan 2023</footer>
+      <Footer />
     </div>
   );
 };

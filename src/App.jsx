@@ -27,9 +27,9 @@ function App() {
     },
   ]);
 
-  return <>
+  return <div className="h-full">
     <RouterProvider router={router} />
-  </>;
+  </div>;
 }
 
 export default App;
