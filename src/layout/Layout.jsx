@@ -18,7 +18,7 @@ const Layout = () => {
 
       <Outlet />
 
-      <footer>2023 &copy; Created by Virkan</footer>
+      <footer> Created by &copy;Virkan 2023</footer>
     </div>
   );
 };
