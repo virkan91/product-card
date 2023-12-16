@@ -5,10 +5,10 @@ import Footer from "../components/Footer";
 
 const Layout = () => {
   return (
-    <div className="h-full flex flex-col justify-between ">
+    <div>
       <Navbar />
 
-      <main className="h-full grow-[1]">
+      <main>
         <Outlet />
       </main>
 
