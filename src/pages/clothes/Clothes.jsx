@@ -19,7 +19,7 @@ const Clothes = () => {
   return (
     <div className="p-[20px]">
       {/* filter */}
-      <div className="border-b py-5">
+      <div className=" py-5">
         <select
           onChange={(event) => setCateg(event.target.value)}
           className="border rounded-[5px] p-1 shadow-md outline-sky-600"

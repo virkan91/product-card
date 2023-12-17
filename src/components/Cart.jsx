@@ -39,35 +39,41 @@ export default function Cart() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 350 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 390 }}
       role="presentation"
       // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       {cart.length ? (
         <List>
-          <div className="flex flex-col gap-2 p-[15px]">
+          <div className="flex flex-col gap-2 p-[15px] ">
             {cart
               .filter((e, i) => !cartId.includes(e.id, i + 1))
               .map((item, index) => {
                 return (
-                  <div key={item.id} className="flex">
+                  <div key={item.id} className="flex  gap-4 border-b  ">
                     <img src={item.img} className="w-[50px] h-[50px]" alt="" />
                     <div>
                       <b>{item.name}</b>
-                      <p>{item.price}RUB</p>
+                      <p>Price:&nbsp;&nbsp;{item.price}&nbsp;RUB</p>
                     </div>
-                    <div className="px-[10px] flex gap-[10px] items-center">
-                      <button
-                        onClick={() => dispatch(deleteItemOne(index))}
-                        className="border rounded-full text-[18px] p-1"
-                      >
-                        -
-                      </button>
+                    <div className="px-[10px] flex gap-[10px] items-center mb-[25px]">
+                      {cartArrId.filter((e) => e == item.id).length ? (
+                        <button
+                          onClick={() => dispatch(deleteItemOne(index))}
+                          className=" rounded-full text-[18px] p-1"
+                        >
+                          -
+                        </button>
+                      ) : (
+                        <button className="border rounded-full text-[18px] p-1">
+                          -
+                        </button>
+                      )}
                       <p>{cartArrId.filter((e) => e == item.id).length}</p>
                       <button
                         onClick={() => dispatch(addToCart(item))}
-                        className="border rounded-full text-[18px] p-1"
+                        className=" rounded-full text-[18px] p-1"
                       >
                         +
                       </button>
@@ -81,20 +87,28 @@ export default function Cart() {
               onClick={() => dispatch(resetCart())}
               className="border bg-[red] text-white p-[2px] px-[5px] rounded-[6px] font-medium"
             >
-              Reset cart
+              Clear Cart
             </button>
           </div>
         </List>
       ) : (
-        <p>Cart is !!!</p>
+        <p className="flex justify-center p-[20px] text-[#103755] font-bold ">
+          MY CART
+        </p>
       )}
       <Divider />
       <List>
-        <div className="p-[15px]">
+        <div className="p-[15px] text-[#103755] font-bold">
           Total:{" "}
           {cart.length
             ? cart.map((item) => item.price).reduce((a, b) => a + b)
-            : 0}
+            : 0}{" "}
+          &nbsp;RUB
+        </div>
+        <div className="p-[15px]">
+          <button className="border bg-[#eeb808] text-white p-[4px] px-[5px] rounded-[6px] font-medium">
+            Proceed to checkout
+          </button>
         </div>
       </List>
     </Box>

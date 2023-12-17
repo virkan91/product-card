@@ -25,7 +25,7 @@ const FoodCopmonent = ({ added, key, food }) => {
             height="140"
             image={food.img}
             alt="green iguana"
-            className="bg-white object-cover h-[240px]"
+            className="bg-white object-cover h-[340px] p-[70px]"
           />
           <CardContent className="h-full">
             <Typography

@@ -18,14 +18,15 @@ const Electronics = () => {
   return (
     <div className="p-[20px]">
       {/* filter */}
-      <div className="border-b py-5">
+      <div className=" py-5">
         <select
           onChange={(event) => setCateg(event.target.value)}
           className="border rounded-[5px] p-1 shadow-md outline-sky-600"
         >
           <option value="all">All</option>
-          <option value="hamberger">Hamburger</option>
-          <option value="pizza">Pizza</option>
+          <option value="samsung">Samsung</option>
+          <option value="redmi">Redmi</option>
+          <option value="headphones">Наушники</option>
         </select>
       </div>
       <div className="grid md:grid-cols-3 gap-7 sm:grid-cols-2 justify-center">
