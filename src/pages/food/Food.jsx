@@ -5,23 +5,29 @@ import FoodCopmonent from "../../components/FoodCopmonent";
 import { MdOutlineNavigateNext, MdOutlineNavigateBefore } from "react-icons/md";
 
 const Food = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const foods = useSelector((state) => state.cart.data).filter(
     (e) => e.type === "food"
   );
 
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(10);
-  const data = useSelector((state) => state.cart.data);
+  // const data = useSelector((state) => state.cart.data);
   const cart = useSelector((state) => state.cart.cart);
 
   return (
     <div className="p-[20px]">
-      <div className="grid grid-cols-3 gap-7">
+      <div className="grid md:grid-cols-3 gap-7 sm:grid-cols-2 justify-center">
         {foods
           .filter((e, i) => i >= start && i < end)
           .map((food) => {
-            return <FoodCopmonent added={cart.find(e => e.id == food.id) ? true : false} key={food.id} food={food} />;
+            return (
+              <FoodCopmonent
+                added={cart.find((e) => e.id == food.id) ? true : false}
+                key={food.id}
+                food={food}
+              />
+            );
           })}
       </div>
 

@@ -672,6 +672,22 @@ const initialState = {
       type: "food",
     },
     {
+      id: 2,
+      category: "hamberger",
+      name: "Air Fryer Hamburgers",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSwgeDtduqcp1fNnHZelrvLyMt9IdrtmzJZg&usqp=CAU",
+      price: 450,
+      type: "food",
+    },
+    {
+      id: 2,
+      category: "hamberger",
+      name: "Air Fryer Hamburgers",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSwgeDtduqcp1fNnHZelrvLyMt9IdrtmzJZg&usqp=CAU",
+      price: 450,
+      type: "food",
+    },
+    {
       id: 4,
       category: "hamberger",
       name: "Juiciest Hamburgers Ever",
@@ -687,11 +703,17 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      state.cart.push(action.payload)
-    }
+      state.cart.push(action.payload);
+    },
+    deleteItem: (state, action) => {
+      state.cart = state.cart.filter((e) => e.id !== action.payload);
+    },
+    deleteItemOne: (state, action) => {
+      state.cart = state.cart.filter((e, i) => i !== action.payload);
+    },
   },
 });
 
-export const { addToCart } = counterSlice.actions;
+export const { addToCart, deleteItem, deleteItemOne } = counterSlice.actions;
 
 export default counterSlice.reducer;

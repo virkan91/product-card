@@ -6,13 +6,12 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import { ShoppingCartRounded } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../counter/counterSlice";
+import { addToCart, deleteItem } from "../counter/counterSlice";
 
 const FoodCopmonent = ({ added, key, food }) => {
   const dispatch = useDispatch();
-  const [click, setClick] = useState(false)
-    
-
+  const [click, setClick] = useState(false);
+  const cart = useSelector((state) => state.cart.cart);
 
   return (
     <div key={key} className="h-full">
@@ -47,14 +46,12 @@ const FoodCopmonent = ({ added, key, food }) => {
           </p>
           <Button
             onClick={() => {
-              dispatch(addToCart(food));
+              cart.find((e) => e.id == food.id)
+                ? dispatch(deleteItem(food.id))
+                : dispatch(addToCart(food));
               setClick(true);
             }}
-            variant={
-              added
-                ? "outlined"
-                : "contained"
-            }
+            variant={added ? "outlined" : "contained"}
             startIcon={<ShoppingCartRounded />}
           >
             {added ? "Added" : " Add to Cart"}

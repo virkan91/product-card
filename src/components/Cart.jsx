@@ -3,21 +3,22 @@ import StyledBadge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import { addToCart, deleteItemOne } from "../counter/counterSlice";
+
 
 export default function Cart() {
+  const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart.cart);
+  console.log(cart);
+  
+  const cartArrId = cart.map((e) => e.id);
+  console.log(cartArrId);
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -44,20 +45,23 @@ export default function Cart() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <div className="flex flex-col gap-2">
-          {cart.map((item) => {
+        <div className="flex flex-col gap-2 p-[15px]">
+          {cart
+
+            .map((item, index) => {
             return (
               <div key={item.id} className="flex">
                 <img src={item.img} className="w-[50px] h-[50px]" alt="" />
                 <div>
-                  <p>{item.name}</p>
+                  <b>{item.name}</b>
                   <p>{item.price}RUB</p>
                 </div>
                 <div className="px-[10px] flex gap-[10px] items-center">
-                  <button className="border rounded-full text-[18px] p-1">
+                  <button onClick={() => dispatch(deleteItemOne(index))} className="border rounded-full text-[18px] p-1">
                     -
                   </button>
-                  <button className="border rounded-full text-[18px] p-1">
+                  <p>{ cartArrId.filter(e => e == item.id).length }</p>
+                  <button onClick={() => dispatch(addToCart(item))} className="border rounded-full text-[18px] p-1">
                     +
                   </button>
                 </div>
@@ -68,8 +72,8 @@ export default function Cart() {
       </List>
       <Divider />
       <List>
-        <div>
-          Amout:{" "}
+        <div className="p-[15px]">
+          Total:{" "}
           {cart.length
             ? cart.map((item) => item.price).reduce((a, b) => a + b)
             : null}
