@@ -15,10 +15,26 @@ const Food = () => {
   // const data = useSelector((state) => state.cart.data);
   const cart = useSelector((state) => state.cart.cart);
 
+  const [categ, setCateg] = useState("all");
   return (
     <div className="p-[20px]">
+      {/* filter */}
+      <div className="border-b py-5">
+        <select
+          onChange={(event) => setCateg(event.target.value)}
+          className="border rounded-[5px] p-1 shadow-md outline-sky-600"
+        >
+          <option value="all">All</option>
+          <option value="hamberger">Hamburger</option>
+          <option value="pizza">Pizza</option>
+        </select>
+      </div>
       <div className="grid md:grid-cols-3 gap-7 sm:grid-cols-2 justify-center">
         {foods
+          .filter((e) => {
+            if (categ === "all") return e;
+            else return e.category === categ;
+          })
           .filter((e, i) => i >= start && i < end)
           .map((food) => {
             return (

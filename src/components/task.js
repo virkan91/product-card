@@ -1,7 +1,7 @@
-const arr = [1, 2, 1, 1, 2];
+const arr = [1, 2, 1, 3, 1, 2]
 
-function fn(arr, id) {
-    for (let i = 0; i < arr.le)
+function fn(arr) {
+    return arr
 }
 
-console.log(fn(arr, 1));
+console.log(fn(arr));

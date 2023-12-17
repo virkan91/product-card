@@ -9,14 +9,14 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import { addToCart, deleteItemOne } from "../counter/counterSlice";
-
+import { addToCart, deleteItemOne, resetCart } from "../counter/counterSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Cart() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
-  console.log(cart);
-  
+  const cartId = cart.map((e) => e.id);
+
   const cartArrId = cart.map((e) => e.id);
   console.log(cartArrId);
   const [state, setState] = React.useState({
@@ -44,39 +44,57 @@ export default function Cart() {
       // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        <div className="flex flex-col gap-2 p-[15px]">
-          {cart
-
-            .map((item, index) => {
-            return (
-              <div key={item.id} className="flex">
-                <img src={item.img} className="w-[50px] h-[50px]" alt="" />
-                <div>
-                  <b>{item.name}</b>
-                  <p>{item.price}RUB</p>
-                </div>
-                <div className="px-[10px] flex gap-[10px] items-center">
-                  <button onClick={() => dispatch(deleteItemOne(index))} className="border rounded-full text-[18px] p-1">
-                    -
-                  </button>
-                  <p>{ cartArrId.filter(e => e == item.id).length }</p>
-                  <button onClick={() => dispatch(addToCart(item))} className="border rounded-full text-[18px] p-1">
-                    +
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </List>
+      {cart.length ? (
+        <List>
+          <div className="flex flex-col gap-2 p-[15px]">
+            {cart
+              .filter((e, i) => !cartId.includes(e.id, i + 1))
+              .map((item, index) => {
+                return (
+                  <div key={item.id} className="flex">
+                    <img src={item.img} className="w-[50px] h-[50px]" alt="" />
+                    <div>
+                      <b>{item.name}</b>
+                      <p>{item.price}RUB</p>
+                    </div>
+                    <div className="px-[10px] flex gap-[10px] items-center">
+                      <button
+                        onClick={() => dispatch(deleteItemOne(index))}
+                        className="border rounded-full text-[18px] p-1"
+                      >
+                        -
+                      </button>
+                      <p>{cartArrId.filter((e) => e == item.id).length}</p>
+                      <button
+                        onClick={() => dispatch(addToCart(item))}
+                        className="border rounded-full text-[18px] p-1"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          <div className="p-[15px]">
+            <button
+              onClick={() => dispatch(resetCart())}
+              className="border bg-[red] text-white p-[2px] px-[5px] rounded-[6px] font-medium"
+            >
+              Reset cart
+            </button>
+          </div>
+        </List>
+      ) : (
+        <p>Cart is !!!</p>
+      )}
       <Divider />
       <List>
         <div className="p-[15px]">
           Total:{" "}
           {cart.length
             ? cart.map((item) => item.price).reduce((a, b) => a + b)
-            : null}
+            : 0}
         </div>
       </List>
     </Box>
