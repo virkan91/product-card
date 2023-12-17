@@ -8,8 +8,8 @@ const Navbar = () => {
   const dispatch = useDispatch()
 
   return (
-    <nav className='border-b w-full flex justify-evenly py-3'>
-      <ul className='flex justify-center gap-[20px] font-bold'>
+    <nav className='border-b w-full flex justify-between items-center py-3'>
+      <ul className='flex justify-center w-full gap-[20px] font-bold'>
         <li>
           <Link to="/">Food</Link>
         </li>

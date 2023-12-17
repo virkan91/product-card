@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import { ShoppingCartRounded } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../counter/counterSlice";
 
-const FoodCopmonent = ({ key, food }) => {
-  const dispatch = useDispatch()
+const FoodCopmonent = ({ added, key, food }) => {
+  const dispatch = useDispatch();
+  const [click, setClick] = useState(false)
+    
+
 
   return (
     <div key={key} className="h-full">
@@ -37,13 +40,24 @@ const FoodCopmonent = ({ key, food }) => {
           </CardContent>
         </CardActionArea>
 
-        <CardActions className="flex justify-between bg-gray-300 rounded-[15px_15px_0_0]">
+        <CardActions className="flex justify-between rounded-[15px_15px_0_0]">
           <p className="font-bold">
             {food.price}
             <span className="text-[12px]">RUB</span>
           </p>
-          <Button onClick={() => dispatch(addToCart(food))} variant="contained" startIcon={<ShoppingCartRounded />}>
-            Add item
+          <Button
+            onClick={() => {
+              dispatch(addToCart(food));
+              setClick(true);
+            }}
+            variant={
+              added
+                ? "outlined"
+                : "contained"
+            }
+            startIcon={<ShoppingCartRounded />}
+          >
+            {added ? "Added" : " Add to Cart"}
           </Button>
         </CardActions>
       </Card>
